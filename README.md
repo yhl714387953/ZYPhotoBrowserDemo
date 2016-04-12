@@ -1,42 +1,16 @@
-//
-//  ViewController.m
-//  ZYPhotoBrowserDemo
-//
-//  Created by Mac on 16/4/12.
-//  Copyright © 2016年 Mac. All rights reserved.
-//
+##菜鸟一枚 给大家做一次分享
+***
+用环信做个聊天，图片查看的效果跟设计的差了一些，就自己写了一个！
 
-#import "ViewController.h"
-#import "ZYPhotoViewController.h"
-#import "SDImageCache.h"
+如果欢迎大家给我指点，在这里谢过了！
+![展示页面](picture/pic1.jpg)
+![展示页面](picture/pic2.jpg)
 
-@interface ViewController ()
+***
+###使用方法
+#####一个参数是当前索引，一个参数是数据源
 
-@end
-
-@implementation ViewController
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    self.title = @"测试";
-    
-    [[SDImageCache sharedImageCache] clearDisk];
-    // Do any additional setup after loading the view, typically from a nib.
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (IBAction)clearImage:(UIButton *)sender {
-    [[SDImageCache sharedImageCache] clearDisk];
-    [[SDImageCache sharedImageCache] clearMemory];
-}
-
-
-- (IBAction)clicked:(id)sender {
+```objc
     NSMutableArray* array = [NSMutableArray array];
     for (int i= 0; i < 10 ; i++) {
         NSString* urlStr = @"";
@@ -66,6 +40,5 @@
     [preVC presentViewController:vc animated:NO completion:^{
         
     }];
-}
 
-@end
+```
