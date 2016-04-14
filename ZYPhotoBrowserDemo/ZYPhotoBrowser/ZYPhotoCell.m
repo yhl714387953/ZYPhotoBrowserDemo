@@ -35,6 +35,10 @@
 //    [self.contentView addSubview:self.circleBar];
 //    [self.contentView addSubview:self.circleView];
     [self.contentView addSubview:self.loadingLabel];
+    
+    UILongPressGestureRecognizer* longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
+    [self.contentView addGestureRecognizer:longPress];
+    
 }
 
 -(void)layoutSubviews{
@@ -49,17 +53,30 @@
     
     self.imageView.backgroundColor = [UIColor colorWithRed:2 / 255.0 green:2 / 255.0 blue:2 / 255.0 alpha:1];
     
+//    [self.imageView sd_setImageWithURL:self.url placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//        
+////        重置imageView大小
+//        if (image.size.height > 1) {
+//            [self resetImageViewFrame:image.size];
+//        }
+//        
+//    }];
+    
+
     self.loadingLabel.hidden = NO;
     [self.imageView sd_setImageWithURL:self.url placeholderImage:nil options:(SDWebImageRefreshCached) progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-        NSLog(@"下载进度：%ld   图片总大小%ld", (long)receivedSize, (long)expectedSize);
-
+//        NSLog(@"下载进度：%ld   图片总大小%ld", (long)receivedSize, (long)expectedSize);
+        dispatch_async(dispatch_get_main_queue(), ^{
+  
+//            [self.circleBar setProgress:(CGFloat)receivedSize / (CGFloat)expectedSize animated:NO];
+        });
         
     } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         
         if (error) {
             NSLog(@"%@", error);
         }
- 
+        
         self.loadingLabel.hidden = YES;
         //        重置imageView大小
         if (image.size.height > 1) {
@@ -93,8 +110,8 @@
 #pragma mark -
 #pragma mark - tapAction
 -(void)handSingleTap:(UITapGestureRecognizer*)tap{
-    if (self.delgate && [self.delgate respondsToSelector:@selector(zyPhotoCell:tapCount:)]) {
-        [self.delgate zyPhotoCell:self tapCount:1];
+    if (self.delgate && [self.delgate respondsToSelector:@selector(zyPhotoCell:tapType:)]) {
+        [self.delgate zyPhotoCell:self tapType:(PhotoBrowserTapTypeSingle)];
     }
 }
 
@@ -102,10 +119,31 @@
     
     CGFloat zoomScale = self.scrollView.zoomScale > 2 ? 1 : 3;
     
+//    CGRect zoomRect = [self zoomRectForScale:zoomScale withCenter:[tap locationInView:tap.view]];
+//    [self.scrollView zoomToRect:zoomRect animated:YES];
+    
+    
     [self.scrollView setZoomScale:zoomScale animated:YES];
-    if (self.delgate && [self.delgate respondsToSelector:@selector(zyPhotoCell:tapCount:)]) {
-        [self.delgate zyPhotoCell:self tapCount:2];
+    if (self.delgate && [self.delgate respondsToSelector:@selector(zyPhotoCell:tapType:)]) {
+        [self.delgate zyPhotoCell:self tapType:(PhotoBrowserTapTypeDouble)];
     }
+}
+
+-(void)longPress:(UILongPressGestureRecognizer*)longPress{
+    if (self.delgate && [self.delgate respondsToSelector:@selector(zyPhotoCell:tapType:)]) {
+        [self.delgate zyPhotoCell:self tapType:(PhotoBrowserTapTypeLongPress)];
+    }
+}
+
+#pragma mark - CommonMethods
+- (CGRect)zoomRectForScale:(float)scale withCenter:(CGPoint)center
+{
+    CGRect zoomRect;
+    zoomRect.size.height =self.frame.size.height / scale;
+    zoomRect.size.width  =self.frame.size.width  / scale;
+    zoomRect.origin.x = center.x - (zoomRect.size.width  /2.0);
+    zoomRect.origin.y = center.y - (zoomRect.size.height /2.0);
+    return zoomRect;
 }
 
 #pragma mark -
@@ -144,7 +182,6 @@
     
     return _scrollView;
 }
-
 
 -(UILabel *)loadingLabel{
     if (!_loadingLabel) {

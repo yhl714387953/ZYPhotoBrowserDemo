@@ -8,6 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSUInteger, PhotoBrowserTapType) {
+    PhotoBrowserTapTypeDefault = 0,
+    /** 单击手势*/
+    PhotoBrowserTapTypeSingle,
+    /** 双击手势*/
+    PhotoBrowserTapTypeDouble,
+    /** 长按手势*/
+    PhotoBrowserTapTypeLongPress
+};
+
+
 @class ZYPhotoCell;
 @protocol ZYPhotoCellDelegate <NSObject>
 @optional
@@ -19,7 +30,7 @@
  *  @param cell ZYPhotoCell
  *  @param count 点击的时候几个手势
  */
--(void)zyPhotoCell:(ZYPhotoCell*)cell tapCount:(NSInteger)count;
+-(void)zyPhotoCell:(ZYPhotoCell*)cell tapType:(PhotoBrowserTapType)type;
 
 @end
 

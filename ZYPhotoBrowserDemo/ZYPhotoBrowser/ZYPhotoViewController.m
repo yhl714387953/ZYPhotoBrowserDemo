@@ -39,6 +39,10 @@
     // Do any additional setup after loading the view.
 }
 
+-(void)dealloc{
+    NSLog(@"ZYPhotoViewController销毁了");
+}
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
@@ -74,6 +78,19 @@
     
     return NO;
 }
+
+//设置导航栏风格
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    if (_viewIsAppear) {
+        return UIStatusBarStyleDefault;
+    }
+    
+    
+    
+    return UIStatusBarStyleLightContent;
+}
+
 
 -(void)initUI{
     UICollectionViewFlowLayout* layout = [[UICollectionViewFlowLayout alloc] init];
@@ -172,21 +189,60 @@
 
 #pragma mark -
 #pragma mark - ZYPhotoCellDelegate
--(void)zyPhotoCell:(ZYPhotoCell *)cell tapCount:(NSInteger)count{
-    if (count == 1) {
-        _statusHidden = YES;
-        _viewIsAppear = NO;
-        [self setNeedsStatusBarAppearanceUpdate];
-        [UIView animateWithDuration:0.1 animations:^{
-            self.view.alpha = 0.4;
-        } completion:^(BOOL finished) {
-            [self dismissViewControllerAnimated:NO completion:^{
-                
-            }];
-        }];
-        
-    }
+-(void)zyPhotoCell:(ZYPhotoCell *)cell tapType:(PhotoBrowserTapType)type{
 
+    switch (type) {
+        case PhotoBrowserTapTypeSingle:
+        {
+            _statusHidden = YES;
+            _viewIsAppear = NO;
+            [self setNeedsStatusBarAppearanceUpdate];
+            [UIView animateWithDuration:0.1 animations:^{
+                self.view.alpha = 0.4;
+            } completion:^(BOOL finished) {
+                [self dismissViewControllerAnimated:NO completion:^{
+                    
+                }];
+            }];
+        }
+            break;
+            
+        case PhotoBrowserTapTypeDouble:
+  
+            break;
+            
+        case PhotoBrowserTapTypeLongPress:
+            
+            [self saveImage:cell.imageView.image];
+            break;
+            
+        default:
+            break;
+    }
+    
+
+}
+
+-(void)saveImage:(UIImage*)image{
+    UIAlertController* ac = [UIAlertController alertControllerWithTitle:@"" message:@"保存图片到相册" preferredStyle:(UIAlertControllerStyleActionSheet)];
+    UIAlertAction* acSave = [UIAlertAction actionWithTitle:@"保存" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+        UIImageWriteToSavedPhotosAlbum(image, self, @selector(image: didFinishSavingWithError: contextInfo:), nil);
+    }];
+    [ac addAction:acSave];
+    
+    UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleCancel) handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    [ac addAction:cancel];
+    
+    [self presentViewController:ac animated:YES completion:^{
+        
+    }];
+}
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo{
+    
+    NSLog(@"保存成功");
 }
 
 /*
