@@ -1,10 +1,10 @@
 ##菜鸟一枚 给大家做一次分享
 ***
 用环信做个聊天，图片查看的效果跟设计的差了一些，就自己写了一个！
-
 如果欢迎大家给我指点，在这里谢过了！
-![展示页面](picture/pic1.jpg)
-![展示页面](picture/pic2.jpg)
+
+<img src="picture/pic1.jpg" width = "320">
+<img src="picture/pic2.jpg" width = "320">
 
 ***
 ###使用方法
