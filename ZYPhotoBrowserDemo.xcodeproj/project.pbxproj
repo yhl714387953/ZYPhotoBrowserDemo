@@ -626,6 +626,7 @@
 				0462CEAA1CBC9B100075C4D1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0462CEAB1CBC9B100075C4D1 /* Build configuration list for PBXNativeTarget "ZYPhotoBrowserDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -634,6 +635,7 @@
 				0462CEAD1CBC9B100075C4D1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0462CEAE1CBC9B100075C4D1 /* Build configuration list for PBXNativeTarget "ZYPhotoBrowserDemoUITests" */ = {
 			isa = XCConfigurationList;
@@ -642,6 +644,7 @@
 				0462CEB01CBC9B100075C4D1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
