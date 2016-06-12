@@ -16,8 +16,8 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "ZYPhotoBrowser"
-  s.version      = "0.0.1"
-  s.summary      = "A short description of ZYPhotoBrowser."
+  s.version      = “1.0.0”
+  s.summary      = "嘴爷简单封装的网络照片查看器"
 
   # This description is used to generate tags and improve search results.
   #   * Think: What does it do? Why did you write it? What is the focus?
@@ -27,8 +27,8 @@ Pod::Spec.new do |s|
   s.description  = <<-DESC
                    DESC
 
-  s.homepage     = "http://EXAMPLE/ZYPhotoBrowser"
-  # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
+  s.homepage     = "https://github.com/yhl714387953/ZYPhotoBrowserDemo"
+  # s.screenshots  = "https://github.com/yhl714387953/ZYPhotoBrowserDemo.git"
 
 
   # ―――  Spec License  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -79,7 +79,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "http://EXAMPLE/ZYPhotoBrowser.git", :tag => "0.0.1" }
+  s.source       = { :git => "https://github.com/yhl714387953/ZYPhotoBrowserDemo.git", :tag => “1.0.0” }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -90,10 +90,10 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "Classes", "Classes/**/*.{h,m}"
+  s.source_files  = "CBPhotoPicker/**/*.{h, m}"
   s.exclude_files = "Classes/Exclude"
 
-  # s.public_header_files = "Classes/**/*.h"
+  # s.public_header_files = "CBPhotoPicker/**/*.h"
 
 
   # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
